@@ -8,8 +8,10 @@ import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.text.set
 import com.google.android.material.snackbar.Snackbar
 import com.jean.rockpaperscissorsapp.databinding.ActivityMenuBinding
+import com.jean.rockpaperscissorsapp.versuspage.ActivityVSCom
 import com.jean.rockpaperscissorsapp.versuspage.ActivityVSPlayer
 
 class MenuActivity : AppCompatActivity() {
@@ -33,13 +35,17 @@ class MenuActivity : AppCompatActivity() {
         binding.tvPlayervscom.text = "$name VS CPU".uppercase()
 
         binding.btnVspemain.setOnClickListener {
-            showDialog()
+            showDialog(ActivityVSPlayer::class.java)
+        }
+
+        binding.btnVscom.setOnClickListener {
+            showDialog(ActivityVSCom::class.java)
         }
 
         Snackbar.make(binding.root,"Selamat Datang $name", Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun showDialog() {
+    private fun showDialog(clazz: Class<*>) {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
@@ -50,8 +56,9 @@ class MenuActivity : AppCompatActivity() {
         val namePlayer1 = intent.getStringExtra(NAME)
         yesBtn.setOnClickListener {
             val namePlayer2 = body.text.toString()
-            val intent = Intent(this, ActivityVSPlayer::class.java)
+            val intent = Intent(this,clazz)
             intent.putExtra(ActivityVSPlayer.PLAYER_2,namePlayer2)
+            intent.putExtra(ActivityVSCom.PLAYER_2,namePlayer2)
             intent.putExtra(ActivityVSPlayer.PLAYER_1,namePlayer1)
             startActivity(intent)
         }

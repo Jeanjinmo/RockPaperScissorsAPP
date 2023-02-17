@@ -14,7 +14,7 @@
         android:theme="@style/Theme.RockPaperScissorsAPP"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityVSCom"
+            android:name=".versuspage.ActivityVSCom"
             android:exported="false" />
         <activity
             android:name=".ActivityCustomDialog"
